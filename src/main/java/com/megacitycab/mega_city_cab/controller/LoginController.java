@@ -1,5 +1,7 @@
 package com.megacitycab.mega_city_cab.controller;
 
+import com.megacitycab.mega_city_cab.dao.userDAO;
+import com.megacitycab.mega_city_cab.database.dbConnection;
 import com.megacitycab.mega_city_cab.model.User;
 import com.megacitycab.mega_city_cab.service.UserService;
 import jakarta.servlet.ServletException;
@@ -10,35 +12,52 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
-    private UserService userService = new UserService();
+    private UserService userService;
+
+    @Override
+    public void init() throws ServletException {
+        try {
+            // Get a database connection using the dbConnection class
+            Connection connection = dbConnection.getConnection();
+
+            // Initialize UserService with UserDao
+            userService = new UserService(new userDAO(connection));
+        } catch (SQLException e) {
+            throw new ServletException("Failed to initialize database connection", e);
+        }
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        User user = userService.authenticate(username, password);
+        User authenticatedUser = userService.authenticate(username, password);
 
-        if (user != null) {
+        if (authenticatedUser != null) {
+            // Create session and store user details
             HttpSession session = request.getSession();
-            session.setAttribute("username", user.getUsername());
-            session.setAttribute("role", user.getRole());
+            session.setAttribute("userID", authenticatedUser.getUserID());
+            session.setAttribute("username", authenticatedUser.getUsername());
+            session.setAttribute("role", authenticatedUser.getRole());
 
-            switch (user.getRole()) {
-                case "Admin":
-                    response.sendRedirect("admin-dashboard.jsb");
-                    break;
-                case "Customer":
-                    response.sendRedirect("dashboard.jsp");
-                    break;
-                default:
-                    response.sendRedirect("login.jsp");
+            // Redirect based on role
+            if ("Admin".equals(authenticatedUser.getRole())) {
+                response.sendRedirect("admin-dashboard.jsp");
+            } else if ("Customer".equals(authenticatedUser.getRole())) {
+                response.sendRedirect("dashboard.jsp");
+            } else {
+                response.sendRedirect("index.jsp");
             }
         } else {
-            response.sendRedirect("login.jsp?error=1");
+            // Redirect back to login page with error message
+            request.setAttribute("error", "Invalid username or password");
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         }
     }
 }
