@@ -8,10 +8,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class userDAO implements UserRepository {
+public class UserDAO implements UserRepository {
     private Connection connection;
 
-    public userDAO(Connection connection) {
+    public UserDAO(Connection connection) {
         this.connection = connection;
     }
 

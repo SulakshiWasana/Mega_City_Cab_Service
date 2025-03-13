@@ -13,9 +13,7 @@ CREATE TABLE customers (
                            name VARCHAR(100) NOT NULL,
                            address VARCHAR(200) NOT NULL,
                            NIC VARCHAR(12) NOT NULL UNIQUE,
-                           phoneNumber VARCHAR(15) NOT NULL,
-                           userID INT,
-                           FOREIGN KEY (userID) REFERENCES users(userID)
+                           phoneNumber VARCHAR(15) NOT NULL
 );
 
 CREATE TABLE drivers (

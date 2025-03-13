@@ -1,6 +1,6 @@
 package com.megacitycab.mega_city_cab.controller;
 
-import com.megacitycab.mega_city_cab.dao.userDAO;
+import com.megacitycab.mega_city_cab.dao.UserDAO;
 import com.megacitycab.mega_city_cab.database.dbConnection;
 import com.megacitycab.mega_city_cab.model.User;
 import com.megacitycab.mega_city_cab.service.UserService;
@@ -16,17 +16,15 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 @WebServlet("/login")
-public class LoginController extends HttpServlet {
+public class LoginServlet extends HttpServlet {
     private UserService userService;
 
     @Override
     public void init() throws ServletException {
         try {
-            // Get a database connection using the dbConnection class
             Connection connection = dbConnection.getConnection();
 
-            // Initialize UserService with UserDao
-            userService = new UserService(new userDAO(connection));
+            userService = new UserService(new UserDAO(connection));
         } catch (SQLException e) {
             throw new ServletException("Failed to initialize database connection", e);
         }

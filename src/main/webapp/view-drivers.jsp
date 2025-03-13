@@ -23,8 +23,8 @@
 </table>
 <script>
     const drivers = [
-        { id: 1, name: "John Doe", licenseNumber: "ABC123", contactNumber: "123-456-7890" },
-        { id: 2, name: "Jane Smith", licenseNumber: "XYZ456", contactNumber: "987-654-3210" }
+        { id: 1, name: "John Doe", licenseNumber: "ABC123", contactNumber: "0785434543" },
+        { id: 2, name: "Jane Smith", licenseNumber: "XYZ456", contactNumber: "0712390540" }
     ];
 
     function loadDrivers() {

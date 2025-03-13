@@ -7,20 +7,30 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
+<style>
+    .btn-submit {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .btn-submit:hover {
+        background-color: #45a049;
+    }
+</style>
 <div class="add-car">
     <h2 class="text-center">Add Car</h2>
     <form action="add-car" method="post" onsubmit="return validateForm()">
         <div class="mb-3">
-            <input type="text" id="carModel" name="carModel" class="form-control" placeholder="Car Model" required>
+            <input type="text" id="model" name="model" class="form-control" placeholder="Car Model" required>
         </div>
         <div class="mb-3">
-            <input type="text" id="carNumber" name="carNumber" class="form-control" placeholder="Car Number" required>
+            <input type="text" id="licensePlate" name="licensePlate" class="form-control" placeholder="License Plate No" required>
         </div>
         <div class="mb-3">
-            <input type="text" id="driverId" name="driverId" class="form-control" placeholder="Driver ID" required>
-        </div>
-        <div class="mb-3">
-            <input type="text" id="carStatus" name="carStatus" class="form-control" placeholder="Car Status" required>
+            <input type="text" id="availability" name="availability" class="form-control" placeholder="Availability" required>
         </div>
         <button type="submit" class="btn btn-submit">Add Car</button>
     </form>
@@ -28,11 +38,10 @@
 
 <script>
     function validateForm() {
-        const carModel = document.getElementById("carModel").value;
-        const carNumber = document.getElementById("carNumber").value;
-        const driverId = document.getElementById("driverId").value;
-        const carStatus = document.getElementById("carStatus").value;
-        if (carModel === "" || carNumber === "" || driverId === "" || carStatus === "") {
+        const model = document.getElementById("model").value;
+        const licensePlate = document.getElementById("licensePlate").value;
+        const availability = document.getElementById("availability").value;
+        if (model === "" || licensePlate === "" || availability === "") {
             alert("Please fill in all fields.");
             return false;
         }

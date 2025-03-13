@@ -7,10 +7,23 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
+<style>
+    .btn-submit {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .btn-submit:hover {
+        background-color: #45a049;
+    }
+</style>
 <h2 class="text-center">Add Driver</h2>
 <form action="add-driver" method="post" onsubmit="return validateForm()">
     <div class="mb-3">
-        <input type="text" id="driverName" name="driverName" class="form-control" placeholder="Driver Name" required>
+        <input type="text" id="name" name="name" class="form-control" placeholder="Driver Name" required>
     </div>
     <div class="mb-3">
         <input type="text" id="licenseNumber" name="licenseNumber" class="form-control" placeholder="License Number" required>

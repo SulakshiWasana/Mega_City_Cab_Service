@@ -203,19 +203,9 @@
                 <input type="text" id="nic" name="nic" class="form-control" placeholder="Enter your NIC" required>
             </div>
             <div class="form-group">
-                <label for="phone">Phone Number</label>
+                <label for="phoneNumber">Phone Number</label>
                 <i class="fas fa-phone"></i>
-                <input type="text" id="phone" name="phone" class="form-control" placeholder="Enter your phone number" required>
-            </div>
-            <div class="form-group">
-                <label for="username">Username</label>
-                <i class="fas fa-at"></i>
-                <input type="text" id="username" name="username" class="form-control" placeholder="Choose a username" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <i class="fas fa-lock"></i>
-                <input type="password" id="password" name="password" class="form-control" placeholder="Choose a password" required>
+                <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" placeholder="Enter your phone number" required>
             </div>
             <button type="submit" class="btn-register">Register</button>
         </form>
