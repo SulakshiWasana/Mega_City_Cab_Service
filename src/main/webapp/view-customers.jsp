@@ -6,7 +6,13 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
+<head>
+    <title>View Customer</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
 <div class="view-customer">
     <h1 class="text-center">View Customer</h1>
     <table class="table table-striped">
@@ -16,23 +22,11 @@
             <th>Name</th>
             <th>Address</th>
             <th>NIC</th>
-            <th>phone Number</th>
+            <th>Phone Number</th>
         </tr>
         </thead>
-        <tbody id="customer-body">
-        </tbody>
-    </table>
-</div>
-
-<script>
-    const customer = [
-        { id: 1, name: "Amal Jayasingha", address: "Kotikawatta", nic: "200011239878", phoneNumber: "0763989765"},
-        { id: 2, name: "Amal Jayasingha", address: "Kotikawatta", nic: "200011239878", phoneNumber: "0765654324"},
-    ];
-
-    function loadCustomers() {
-        const tbody = document.getElementById("customer-body");
-        tbody.innerHTML = customer.map(customer => `
+        <tbody>
+        <c:forEach var="customer" items="${customers}">
             <tr>
                 <td>${customer.customerID}</td>
                 <td>${customer.name}</td>
@@ -40,9 +34,9 @@
                 <td>${customer.NIC}</td>
                 <td>${customer.phoneNumber}</td>
             </tr>
-        `).join("");
-    }
-
-    window.onload = loadCustomers;
-</script>
+        </c:forEach>
+        </tbody>
+    </table>
+</div>
+</body>
 </html>
