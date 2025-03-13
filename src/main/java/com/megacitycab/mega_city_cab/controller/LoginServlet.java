@@ -21,13 +21,9 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        try {
-            Connection connection = dbConnection.getConnection();
+        Connection connection = dbConnection.getInstance().getConnection();
 
-            userService = new UserService(new UserDAO(connection));
-        } catch (SQLException e) {
-            throw new ServletException("Failed to initialize database connection", e);
-        }
+        userService = new UserService(new UserDAO(connection));
     }
 
     @Override

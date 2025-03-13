@@ -12,7 +12,7 @@ public class CarDAO {
 
     public boolean insertCar(Car car) {
         boolean rowInserted = false;
-        try (Connection connection = dbConnection.getConnection();
+        try (Connection connection = dbConnection.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_CAR_SQL)) {
             preparedStatement.setString(1, car.getModel());
             preparedStatement.setString(2, car.getLicensePlate());

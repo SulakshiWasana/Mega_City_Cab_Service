@@ -19,7 +19,7 @@ public class CustomerDAO {
 
     public boolean insertCustomer(Customer customer) {
         boolean rowInserted = false;
-        try (Connection connection = dbConnection.getConnection();
+        try (Connection connection = dbConnection.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_CUSTOMER_SQL)) {
             preparedStatement.setString(1, customer.getName());
             preparedStatement.setString(2, customer.getAddress());
@@ -37,7 +37,7 @@ public class CustomerDAO {
         List<Customer> customers = new ArrayList<>();
         System.out.println("Executing: SELECT * FROM customers");
 
-        try (Connection connection = dbConnection.getConnection();
+        try (Connection connection = dbConnection.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_CUSTOMERS_SQL);
              ResultSet resultSet = preparedStatement.executeQuery()) {
 

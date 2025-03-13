@@ -12,7 +12,7 @@ public class DriverDAO {
 
     public boolean insertDriver(Driver driver) {
         boolean rowInserted = false;
-        try (Connection connection = dbConnection.getConnection();
+        try (Connection connection = dbConnection.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_DRIVER_SQL)) {
             preparedStatement.setString(1, driver.getName());
             preparedStatement.setString(2, driver.getLicenseNumber());
