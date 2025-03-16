@@ -21,7 +21,9 @@
     }
 </style>
 <h2 class="text-center">Add Driver</h2>
-<form action="add-driver" method="post" onsubmit="return validateForm()">
+<form action="driver" method="post" onsubmit="return validateForm()">
+    <input type="hidden" name="action" value="add" />
+
     <div class="mb-3">
         <input type="text" id="name" name="name" class="form-control" placeholder="Driver Name" required>
     </div>

@@ -21,10 +21,9 @@ public class ViewCustomerServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("Servlet invoked: ViewCustomerServlet");
         List<Customer> customers = customerService.getAllCustomers();
-        System.out.println("Customers retrieved: " + customers);
         req.setAttribute("customers", customers);
-        req.getRequestDispatcher("/view-customer.jsp").forward(req, resp);
+        System.out.println("customers"+ customers.size());
+        req.getRequestDispatcher("view-customers.jsp").forward(req, resp);
     }
 }

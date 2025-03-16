@@ -1,8 +1,7 @@
 package com.megacitycab.mega_city_cab.controller;
 
-import com.megacitycab.mega_city_cab.model.Car;
-import com.megacitycab.mega_city_cab.model.Driver;
-import com.megacitycab.mega_city_cab.service.CarService;
+import com.megacitycab.mega_city_cab.model.Customer;
+import com.megacitycab.mega_city_cab.service.CustomerService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -12,59 +11,61 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/car")
-public class CarServlet extends HttpServlet {
-    private final CarService carService;
+@WebServlet("/customer")
+public class CustomerServlet extends HttpServlet {
+    private final CustomerService customerService;
 
-    public CarServlet() {
-        this.carService = new CarService();
+    public CustomerServlet() {
+        this.customerService = new CustomerService();
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
         if (action != null && action.equals("view")) {
-            List<Car> cars = carService.getAllCars();
-            req.setAttribute("cars", cars);
+            List<Customer> customers = customerService.getAllCustomers();
+            req.setAttribute("customers", customers);
             req.getRequestDispatcher("admin-dashboard.jsp").forward(req, resp);
         } else {
-            resp.sendRedirect("add-car.jsp");
+            resp.sendRedirect("add-customer.jsp");
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
-        String carIDStr = req.getParameter("carID");
-        String model = req.getParameter("model");
-        String licensePlate = req.getParameter("licensePlate");
-        String availability = req.getParameter("availability");
+        String customerIDStr = req.getParameter("customerID");
+        String name = req.getParameter("name");
+        String address = req.getParameter("address");
+        String nic = req.getParameter("nic");
+        String phoneNumber = req.getParameter("phoneNumber");
 
         if (action != null) {
-            int carID = carIDStr != null && !carIDStr.isEmpty() ? Integer.parseInt(carIDStr) : 0;
-            Car car = new Car();
-            car.setCarID(carID);
-            car.setModel(model);
-            car.setLicensePlate(licensePlate);
-            car.setAvailability(availability);
+            int customerID = customerIDStr != null && !customerIDStr.isEmpty() ? Integer.parseInt(customerIDStr) : 0;
+            Customer customer = new Customer();
+            customer.setCustomerID(customerID);
+            customer.setName(name);
+            customer.setAddress(address);
+            customer.setNic(nic);
+            customer.setPhoneNumber(phoneNumber);
 
             boolean success;
             switch (action) {
                 case "add":
-                    success = carService.addCar(car);
+                    success = customerService.addCustomer(customer);
                     break;
                 case "update":
-                    success = carService.updateCar(car);
+                    success = customerService.updateCustomer(customer);
                     break;
                 case "delete":
-                    success = carService.deleteCar(carID);
+                    success = customerService.deleteCustomer(customerID);
                     break;
                 default:
                     success = false;
             }
 
             if (success) {
-                resp.sendRedirect("car?action=view");
+                resp.sendRedirect("customer?action=view");
             } else {
                 resp.sendRedirect("admin-dashboard.jsp?error=Operation failed");
             }

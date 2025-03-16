@@ -18,7 +18,8 @@
             margin: 0;
             padding: 0;
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #6a11cb, #2575fc); /* Gradient background */
+            /*background: linear-gradient(135deg, #6a11cb, #2575fc); /* Gradient background */
+            background: url('/images/taxi.jpg') no-repeat center center fixed;
             display: flex;
             justify-content: center;
             align-items: center;

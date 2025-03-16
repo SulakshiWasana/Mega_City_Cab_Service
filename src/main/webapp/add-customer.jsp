@@ -11,7 +11,7 @@
     <title>Add Customer</title>
     <style>
         .btn-submit {
-            background-color: #4CAF50; /* Green */
+            background-color: #4CAF50;
             color: white;
             padding: 10px 20px;
             border: none;
@@ -19,47 +19,43 @@
             cursor: pointer;
         }
         .btn-submit:hover {
-            background-color: #45a049; /* Darker green on hover */
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
-<div class="add-car">
-    <h2 class="text-center">Add Customer</h2>
-    <form action="add-customer" method="post" onsubmit="return validateForm()">
-        <!-- Customer Name Field -->
-        <div class="mb-3">
-            <input type="text" id="customerName" name="customerName" class="form-control" placeholder="Customer Name" required>
-        </div>
-        <!-- Address Field -->
-        <div class="mb-3">
-            <input type="text" id="address" name="address" class="form-control" placeholder="Address" required>
-        </div>
-        <!-- NIC Field -->
-        <div class="mb-3">
-            <input type="text" id="nic" name="nic" class="form-control" placeholder="NIC" required>
-        </div>
-        <!-- Buttons -->
-        <div class="mb-3">
-            <button type="submit" class="btn btn-submit">Add Customer</button>
-        </div>
-    </form>
-</div>
+<h2>Add Customer</h2>
+<form action="customer" method="post" onsubmit="return validateForm()">
+    <input type="hidden" name="action" value="add" />
+
+    <div class="mb-3">
+        <input type="text" id="name" name="name" class="form-control" placeholder="Customer Name" required />
+    </div>
+    <div class="mb-3">
+        <input type="text" id="address" name="address" class="form-control" placeholder="Address" required />
+    </div>
+    <div class="mb-3">
+        <input type="text" id="nic" name="nic" class="form-control" placeholder="NIC" required />
+    </div>
+    <div class="mb-3">
+        <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" placeholder="Phone Number" required />
+    </div>
+    <button type="submit" class="btn-submit">Add Customer</button>
+</form>
 
 <script>
     function validateForm() {
-        const customerName = document.getElementById("customerName").value.trim();
+        const name = document.getElementById("name").value.trim();
         const address = document.getElementById("address").value.trim();
         const nic = document.getElementById("nic").value.trim();
+        const phoneNumber = document.getElementById("phoneNumber").value.trim();
 
-        // Check if any field is empty
-        if (customerName === "" || address === "" || nic === "") {
+        if (name === "" || address === "" || nic === "" || phoneNumber === "") {
             alert("Please fill in all fields.");
-            return false; // Prevent form submission
+            return false;
         }
 
-        // Additional validation logic can be added here (e.g., NIC format validation)
-        return true; // Allow form submission
+        return true;
     }
 </script>
 </body>

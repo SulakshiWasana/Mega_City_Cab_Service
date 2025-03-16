@@ -17,7 +17,6 @@ public class dbConnection {
     // Private constructor to prevent instantiation
     private dbConnection() {
         try {
-            // Load the MySQL JDBC driver
             Class.forName("com.mysql.cj.jdbc.Driver");
             // Create the database connection
             connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
@@ -41,6 +40,27 @@ public class dbConnection {
 
     // Method to get the database connection
     public Connection getConnection() {
+        try {
+            // Check if the connection is closed or null and re-establish if necessary
+            if (connection == null || connection.isClosed()) {
+                connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to re-establish database connection.");
+        }
         return connection;
+    }
+
+    // Method to close the connection (if needed)
+    public void closeConnection() {
+        try {
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to close database connection.");
+        }
     }
 }

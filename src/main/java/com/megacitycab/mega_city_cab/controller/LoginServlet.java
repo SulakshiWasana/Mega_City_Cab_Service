@@ -19,39 +19,24 @@ import java.sql.SQLException;
 public class LoginServlet extends HttpServlet {
     private UserService userService;
 
-    @Override
-    public void init() throws ServletException {
-        Connection connection = dbConnection.getInstance().getConnection();
-
-        userService = new UserService(new UserDAO(connection));
+    public void init() {
+        userService = new UserService();
     }
 
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        User authenticatedUser = userService.authenticate(username, password);
+        User user = userService.authenticateUser(username, password);
 
-        if (authenticatedUser != null) {
-            // Create session and store user details
+        if (user != null) {
+            // Successful login, set session
             HttpSession session = request.getSession();
-            session.setAttribute("userID", authenticatedUser.getUserID());
-            session.setAttribute("username", authenticatedUser.getUsername());
-            session.setAttribute("role", authenticatedUser.getRole());
-
-            // Redirect based on role
-            if ("Admin".equals(authenticatedUser.getRole())) {
-                response.sendRedirect("admin-dashboard.jsp");
-            } else if ("Customer".equals(authenticatedUser.getRole())) {
-                response.sendRedirect("dashboard.jsp");
-            } else {
-                response.sendRedirect("index.jsp");
-            }
+            session.setAttribute("user", user);
+            response.sendRedirect("admin-dashboard.jsp"); // Redirect to user dashboard
         } else {
-            // Redirect back to login page with error message
-            request.setAttribute("error", "Invalid username or password");
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            // Invalid login
+            response.sendRedirect("index.jsp?error=true");
         }
     }
 }

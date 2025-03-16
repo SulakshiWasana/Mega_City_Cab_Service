@@ -1,5 +1,6 @@
 package com.megacitycab.mega_city_cab.dao;
 
+import com.megacitycab.mega_city_cab.database.dbConnection;
 import com.megacitycab.mega_city_cab.model.User;
 import com.megacitycab.mega_city_cab.repository.UserRepository;
 
@@ -8,33 +9,43 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserDAO implements UserRepository {
-    private Connection connection;
+public class UserDAO {
 
-    public UserDAO(Connection connection) {
-        this.connection = connection;
+    public boolean registerUser(User user) {
+        String sql = "INSERT INTO users (username, password, role) VALUES (?, ?, ?)";
+        try (Connection conn = dbConnection.getInstance().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, user.getUsername());
+            pstmt.setString(2, user.getPassword());
+            pstmt.setString(3, user.getRole());
+
+            return pstmt.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
+    public User getUserByUsername(String username,String password) {
+        String sql = "SELECT * FROM users WHERE username = ?";
+        try (Connection conn = dbConnection.getInstance().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-    @Override
-    public User findByUsername(String username) {
-        User user = null;
-        String query = "SELECT * FROM users WHERE username = ?";
+            pstmt.setString(1, username);
+            ResultSet rs = pstmt.executeQuery();
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, username);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            if (resultSet.next()) {
-                user = new User();
-                user.setUserID(resultSet.getInt("userID"));
-                user.setUsername(resultSet.getString("username"));
-                user.setPassword(resultSet.getString("password"));
-                user.setRole(resultSet.getString("role"));
+            if (rs.next()) {
+                return new User(
+                        rs.getInt("userID"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getString("role")
+                );
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return user;
+        return null;
     }
 }

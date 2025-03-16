@@ -188,24 +188,19 @@
         <h2>Create Your Account</h2>
         <form action="register" method="post" onsubmit="return validateForm()">
             <div class="form-group">
-                <label for="name">Name</label>
+                <label for="username">Username</label>
                 <i class="fas fa-user"></i>
-                <input type="text" id="name" name="name" class="form-control" placeholder="Enter your name" required>
+                <input type="text" id="username" name="username" class="form-control" placeholder="Enter your username" required>
             </div>
             <div class="form-group">
-                <label for="address">Address</label>
+                <label for="password">Password</label>
                 <i class="fas fa-map-marker-alt"></i>
-                <input type="text" id="address" name="address" class="form-control" placeholder="Enter your address" required>
+                <input type="text" id="password" name="password" class="form-control" placeholder="Enter your password" required>
             </div>
             <div class="form-group">
-                <label for="nic">NIC</label>
+                <label for="role">Role</label>
                 <i class="fas fa-id-card"></i>
-                <input type="text" id="nic" name="nic" class="form-control" placeholder="Enter your NIC" required>
-            </div>
-            <div class="form-group">
-                <label for="phoneNumber">Phone Number</label>
-                <i class="fas fa-phone"></i>
-                <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" placeholder="Enter your phone number" required>
+                <input type="text" id="role" name="role" class="form-control" placeholder="Enter your role" required>
             </div>
             <button type="submit" class="btn-register">Register</button>
         </form>

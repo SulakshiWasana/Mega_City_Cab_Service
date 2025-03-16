@@ -1,7 +1,7 @@
 package com.megacitycab.mega_city_cab.model;
 
 public class Customer {
-    private int CustomerID;
+    private int customerID;
     private String name;
     private String address;
     private String nic;
@@ -11,7 +11,7 @@ public class Customer {
     }
 
     public Customer(int customerID, String name, String address, String nic, String phoneNumber) {
-        CustomerID = customerID;
+        this.customerID = customerID;
         this.name = name;
         this.address = address;
         this.nic = nic;
@@ -19,11 +19,11 @@ public class Customer {
     }
 
     public int getCustomerID() {
-        return CustomerID;
+        return customerID;
     }
 
     public void setCustomerID(int customerID) {
-        CustomerID = customerID;
+        this.customerID = customerID;
     }
 
     public String getName() {

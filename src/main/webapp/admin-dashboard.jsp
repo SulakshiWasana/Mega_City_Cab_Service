@@ -158,19 +158,19 @@
 <div class="sidebar">
     <h1>Mega City Cab</h1>
     <ul>
-        <li><a href="register.jsp"><i class="fas fa-user-plus"></i>Add Customer</a></li>
+        <li><a href="#" onclick="loadContent('add-customer.jsp')"><i class="fas fa-user-plus"></i>Add Customer</a></li>
         <li><a href="#" onclick="loadContent('add-driver.jsp')"><i class="fas fa-user-plus"></i>Add Driver</a></li>
         <li><a href="#" onclick="loadContent('add-car.jsp')"><i class="fas fa-car"></i>Add Car</a></li>
         <li><a href="#" onclick="loadContent('add-booking.jsp')"><i class="fas fa-plus"></i>Add Booking</a></li>
-        <li><a href="#" onclick="loadContent('view-customers.jsp')"><i class="fas fa-users"></i>View Drivers</a></li>
-        <li><a href="#" onclick="loadContent('view-drivers.jsp')"><i class="fas fa-users"></i>View Drivers</a></li>
-        <li><a href="#" onclick="loadContent('view-cars.jsp')"><i class="fas fa-car-side"></i>View Cars</a></li>
-        <li><a href="#" onclick="loadContent('view-bookings.jsp')"><i class="fas fa-list"></i>View Bookings</a></li>
-        <li><a href="#" onclick="loadContent('calculate-bill.jsp')"><i class="fas fa-calculator"></i>Calculate Bill</a></li>
+        <li><a href="#" onclick="loadContent('view-customer')"><i class="fas fa-users"></i>View Customers</a></li>
+        <li><a href="#" onclick="loadContent('view-driver')"><i class="fas fa-users"></i>View Drivers</a></li>
+        <li><a href="#" onclick="loadContent('view-car')"><i class="fas fa-car-side"></i>View Cars</a></li>
+        <li><a href="#" onclick="loadContent('view-booking')"><i class="fas fa-list"></i>View Bookings</a></li>
+        <li><a href="#" onclick="loadContent('booking.jsp')"><i class="fas fa-calculator"></i>Calculate Bill</a></li>
     </ul>
     <div class="logout">
         <ul>
-            <li><a href="logout"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
+            <li><a href="#" onclick="window.location.href='logout'"><i class="fas fa-sign-out-alt"></i>Logout</a></li>
         </ul>
     </div>
 </div>

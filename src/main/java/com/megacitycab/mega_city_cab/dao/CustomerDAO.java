@@ -12,31 +12,53 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerDAO {
-
-    // SQL Queries
     private static final String INSERT_CUSTOMER_SQL = "INSERT INTO customers (name, address, nic, phoneNumber) VALUES (?, ?, ?, ?)";
+    private static final String UPDATE_CUSTOMER_SQL = "UPDATE customers SET name = ?, address = ?, nic = ?, phoneNumber = ? WHERE customerID = ?";
+    private static final String DELETE_CUSTOMER_SQL = "DELETE FROM customers WHERE customerID = ?";
     private static final String SELECT_ALL_CUSTOMERS_SQL = "SELECT * FROM customers";
 
-    public boolean insertCustomer(Customer customer) {
-        boolean rowInserted = false;
+    public boolean addCustomer(Customer customer) {
         try (Connection connection = dbConnection.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_CUSTOMER_SQL)) {
             preparedStatement.setString(1, customer.getName());
             preparedStatement.setString(2, customer.getAddress());
             preparedStatement.setString(3, customer.getNic());
             preparedStatement.setString(4, customer.getPhoneNumber());
-
-            rowInserted = preparedStatement.executeUpdate() > 0;
+            return preparedStatement.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
-        return rowInserted;
     }
 
-    public List<Customer> getAllCustomers() {
-        List<Customer> customers = new ArrayList<>();
-        System.out.println("Executing: SELECT * FROM customers");
+    public boolean updateCustomer(Customer customer) {
+        try (Connection connection = dbConnection.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_CUSTOMER_SQL)) {
+            preparedStatement.setString(1, customer.getName());
+            preparedStatement.setString(2, customer.getAddress());
+            preparedStatement.setString(3, customer.getNic());
+            preparedStatement.setString(4, customer.getPhoneNumber());
+            preparedStatement.setInt(5, customer.getCustomerID());
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
+    public boolean deleteCustomer(int customerID) {
+        try (Connection connection = dbConnection.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(DELETE_CUSTOMER_SQL)) {
+            preparedStatement.setInt(1, customerID);
+            return preparedStatement.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static List<Customer> getAllCustomers() {
+        List<Customer> customers = new ArrayList<>();
         try (Connection connection = dbConnection.getInstance().getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_CUSTOMERS_SQL);
              ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -46,13 +68,10 @@ public class CustomerDAO {
                 customer.setCustomerID(resultSet.getInt("customerID"));
                 customer.setName(resultSet.getString("name"));
                 customer.setAddress(resultSet.getString("address"));
-                customer.setNic(resultSet.getString("NIC"));
+                customer.setNic(resultSet.getString("nic"));
                 customer.setPhoneNumber(resultSet.getString("phoneNumber"));
                 customers.add(customer);
             }
-
-            System.out.println("Total customers retrieved: " + customers.size());
-
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -22,7 +22,9 @@
 </style>
 <div class="add-car">
     <h2 class="text-center">Add Car</h2>
-    <form action="add-car" method="post" onsubmit="return validateForm()">
+    <form action="car" method="post" onsubmit="return validateForm()">
+        <input type="hidden" name="action" value="add" />
+
         <div class="mb-3">
             <input type="text" id="model" name="model" class="form-control" placeholder="Car Model" required>
         </div>
