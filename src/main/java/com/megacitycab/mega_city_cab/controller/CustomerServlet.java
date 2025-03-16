@@ -65,7 +65,8 @@ public class CustomerServlet extends HttpServlet {
             }
 
             if (success) {
-                resp.sendRedirect("customer?action=view");
+                req.setAttribute("message", "Customer added successfully.");
+                req.getRequestDispatcher("success.jsp").forward(req, resp);  
             } else {
                 resp.sendRedirect("admin-dashboard.jsp?error=Operation failed");
             }

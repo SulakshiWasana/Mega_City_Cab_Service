@@ -1,5 +1,3 @@
-package customer;
-
 import com.megacitycab.mega_city_cab.dao.CustomerDAO;
 import com.megacitycab.mega_city_cab.model.Customer;
 import org.junit.jupiter.api.*;
@@ -18,14 +16,12 @@ public class CustomerServletTest {
 
     @BeforeAll
     static void setUp() throws SQLException {
-        // Set up the database connection for testing
-        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/megacitycab_test", "root", "Sula@123");  
+        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/megacitycab_test", "root", "Sula@123");
         customerDAO = new CustomerDAO();
     }
 
     @AfterAll
     static void tearDown() throws SQLException {
-        // Close the database connection after tests
         if (connection != null && !connection.isClosed()) {
             connection.close();
         }
@@ -33,7 +29,7 @@ public class CustomerServletTest {
 
     @Test
     @Order(1)
-    void testAddCustomer() throws SQLException {
+    void testAddCustomer() {
         Customer customer = new Customer(1, "John Doe", "123 Main St", "200087876756", "0771234567");
         customerDAO.addCustomer(customer);
         assertTrue(true);
@@ -41,7 +37,7 @@ public class CustomerServletTest {
 
     @Test
     @Order(2)
-    void testUpdateCustomer() throws SQLException {
+    void testUpdateCustomer() {
         Customer customer = new Customer(1, "John Updated", "456 Updated St", "987650321V", "0777654321");
         customerDAO.updateCustomer(customer);
         assertTrue(true);
@@ -49,14 +45,14 @@ public class CustomerServletTest {
 
     @Test
     @Order(3)
-    void testDeleteCustomer() throws SQLException {
+    void testDeleteCustomer() {
         boolean success = customerDAO.deleteCustomer(1);
         assertTrue(true);
     }
 
     @Test
     @Order(4)
-    void testGetAllCustomers() throws SQLException {
+    void testGetAllCustomers() {
         List<Customer> customers = customerDAO.getAllCustomers();
         assertNotNull(customers);
         assertFalse(customers.isEmpty());

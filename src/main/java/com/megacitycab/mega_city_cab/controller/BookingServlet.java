@@ -77,7 +77,8 @@ public class BookingServlet extends HttpServlet {
             }
 
             if (success) {
-                resp.sendRedirect("booking?action=view");
+                req.setAttribute("message", "Booking added successfully.");
+                req.getRequestDispatcher("success.jsp").forward(req, resp);
             } else {
                 resp.sendRedirect("admin-dashboard.jsp?error=Operation failed");
             }

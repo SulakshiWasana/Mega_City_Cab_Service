@@ -1,7 +1,6 @@
 package com.megacitycab.mega_city_cab.controller;
 
 import com.megacitycab.mega_city_cab.model.Car;
-import com.megacitycab.mega_city_cab.model.Driver;
 import com.megacitycab.mega_city_cab.service.CarService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -64,7 +63,8 @@ public class CarServlet extends HttpServlet {
             }
 
             if (success) {
-                resp.sendRedirect("car?action=view");
+                req.setAttribute("message", "Car added successfully.");
+                req.getRequestDispatcher("success.jsp").forward(req, resp);
             } else {
                 resp.sendRedirect("admin-dashboard.jsp?error=Operation failed");
             }

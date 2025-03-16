@@ -64,7 +64,8 @@ public class DriverServlet extends HttpServlet {
             }
 
             if (success) {
-                resp.sendRedirect("driver?action=view");
+                req.setAttribute("message", "Driver added successfully.");
+                req.getRequestDispatcher("success.jsp").forward(req, resp);
             } else {
                 resp.sendRedirect("admin-dashboard.jsp?error=Operation failed");
             }
