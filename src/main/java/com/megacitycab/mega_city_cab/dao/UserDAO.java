@@ -2,7 +2,6 @@ package com.megacitycab.mega_city_cab.dao;
 
 import com.megacitycab.mega_city_cab.database.dbConnection;
 import com.megacitycab.mega_city_cab.model.User;
-import com.megacitycab.mega_city_cab.repository.UserRepository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,11 +9,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserDAO {
+    String USER_INSERT_SQL = "INSERT INTO users (username, password, role) VALUES (?, ?, ?)";
+    String USER_FETCH_SQL = "SELECT * FROM users WHERE username = ?";
+
+
 
     public boolean registerUser(User user) {
-        String sql = "INSERT INTO users (username, password, role) VALUES (?, ?, ?)";
         try (Connection conn = dbConnection.getInstance().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             PreparedStatement pstmt = conn.prepareStatement(USER_INSERT_SQL)) {
 
             pstmt.setString(1, user.getUsername());
             pstmt.setString(2, user.getPassword());
@@ -28,9 +30,8 @@ public class UserDAO {
         return false;
     }
     public User getUserByUsername(String username,String password) {
-        String sql = "SELECT * FROM users WHERE username = ?";
         try (Connection conn = dbConnection.getInstance().getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             PreparedStatement pstmt = conn.prepareStatement(USER_FETCH_SQL)) {
 
             pstmt.setString(1, username);
             ResultSet rs = pstmt.executeQuery();

@@ -30,12 +30,10 @@ public class LoginServlet extends HttpServlet {
         User user = userService.authenticateUser(username, password);
 
         if (user != null) {
-            // Successful login, set session
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
-            response.sendRedirect("admin-dashboard.jsp"); // Redirect to user dashboard
+            response.sendRedirect("admin-dashboard.jsp");
         } else {
-            // Invalid login
             response.sendRedirect("index.jsp?error=true");
         }
     }
